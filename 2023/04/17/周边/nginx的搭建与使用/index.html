@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="使用Cloudreve搭建私人网盘, 张一雄">
+    <meta name="keywords" content="nginx的搭建与使用, 张一雄">
     <meta name="description" content="我的博客">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>使用Cloudreve搭建私人网盘 | 张一雄</title>
+    <title>nginx的搭建与使用 | 张一雄</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">使用Cloudreve搭建私人网盘</h1>
+                    <h1 class="description center-align post-title">nginx的搭建与使用</h1>
                 </div>
             </div>
         </div>
@@ -387,12 +387,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/linux/">
-                                <span class="chip bg-color">linux</span>
+                            <a href="/tags/nginx/">
+                                <span class="chip bg-color">nginx</span>
                             </a>
                         
-                            <a href="/tags/Cloudreve/">
-                                <span class="chip bg-color">Cloudreve</span>
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
                             </a>
                         
                     </div>
@@ -437,106 +437,403 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><p>centos7</p>
-<h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//docs.cloudreve.org/
+                <h1 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h1><p>1.先安装gcc-c++编译器</p>
+<pre class=" language-sh"><code class="language-sh">yum install gcc-c++
+yum install -y openssl openssl-devel
 </code></pre>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
-<li>创建文件夹</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh">mkdir /usr/local/cloudreve
-cd /usr/local/cloudreve
+<p>2.再安装pcre包</p>
+<pre class=" language-sh"><code class="language-sh">yum install -y pcre pcre-devel
 </code></pre>
-<ul>
-<li>下载</li>
-</ul>
-<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//github.com/cloudreve/Cloudreve/releases
+<p>3.再安装zlib包</p>
+<pre class=" language-sh"><code class="language-sh">yum install -y zlib zlib-devel
 </code></pre>
-<ul>
-<li>解压</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh">tar -zxvf cloudreve_3.7.1_linux_amd64.tar.gz
+<h1 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h1><p>1.在&#x2F;usr&#x2F;local&#x2F;下创建文件nginx文件</p>
+<pre class=" language-sh"><code class="language-sh">mkdir -p /usr/local/nginx
 </code></pre>
-<ul>
-<li>运行(看管理员账号密码)</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh"># 赋予执行权限
-chmod +x ./cloudreve
+<p>2.在网上下nginx包上传至Linux（<a target="_blank" rel="noopener" href="https://nginx.org/download/%EF%BC%89%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E7%9B%B4%E6%8E%A5%E4%B8%8B%E8%BD%BD">https://nginx.org/download/），也可以直接下载</a></p>
+<pre class=" language-sh"><code class="language-sh">wget https://nginx.org/download/nginx-1.19.9.tar.gz
+</code></pre>
+<p>3.解压并进入nginx目录</p>
+<pre class=" language-sh"><code class="language-sh">tar -zxvf nginx-1.19.9.tar.gz
+cd nginx-1.19.9
+</code></pre>
+<p>4.使用nginx默认配置</p>
+<pre class=" language-sh"><code class="language-sh"># m默认
+./configure		#与以下二选一
 
-# 启动 Cloudreve（看管理员账号密码）
-./cloudreve
+# 如果使用stream标签进行ssh跳转，需要加这个参数
+./configure --with-stream
 </code></pre>
-<ul>
-<li>重置管理员密码</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh">./cloudreve --database-script ResetAdminPassword
+<p>5.编译安装</p>
+<pre class=" language-sh"><code class="language-sh">make
+make install
+</code></pre>
+<p>6.查找安装路径</p>
+<pre class=" language-sh"><code class="language-sh">whereis nginx
+</code></pre>
+<p>7.进入sbin目录，可以看到有一个可执行文件nginx，直接**.&#x2F;nginx**执行就OK了。</p>
+<pre class=" language-sh"><code class="language-sh">cd sbin
+./nginx
+</code></pre>
+<p>9.查看是否启动成功</p>
+<pre class=" language-sh"><code class="language-sh">ps -ef | grep nginx
+</code></pre>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><pre class=" language-sh"><code class="language-sh">cd /usr/local/nginx/sbin/
 
-# 默认账号
-admin@cloudreve.org
-# 密码
-随机字符
+# 重新加载配置
+./nginx -s reload
+
+#启动
+nginx 
+
+# 停止
+./nginx -s quit 	#:此方式停止步骤是待nginx进程处理任务完毕进行停止。
+./nginx -s stop 	#:此方式相当于先查出nginx进程id再使用kill命令强制杀掉进程。
 </code></pre>
-<ul>
-<li>访问</li>
+<h1 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h1><h2 id="配置ssh跳转"><a href="#配置ssh跳转" class="headerlink" title="配置ssh跳转"></a>配置ssh跳转</h2><h3 id="配置mysql跳转"><a href="#配置mysql跳转" class="headerlink" title="配置mysql跳转"></a>配置mysql跳转</h3><ul>
+<li>正常</li>
 </ul>
-<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">localhost:</span>5212
+<pre class=" language-sh"><code class="language-sh"># 在配置文件最下方新增以下内容，位置与http&#123;&#125;平级
+# 输入本机的ip3306+用户名和密码 可以访问192.168.220.137:3306的数据库
+stream &#123;
+    upstream cloudsocket1 &#123;
+    hash $remote_addr consistent;
+    # $binary_remote_addr;
+    server mysql.sqlpub.com:3306 weight=5 max_fails=3 fail_timeout=30s;	#跳转到的服务器
+    &#125;
+    server &#123;
+    listen 13306;#数据库服务器监听端口
+    proxy_connect_timeout 10s;
+    proxy_timeout 300s;#设置客户端和代理服务之间的超时时间，如果5分钟内没操作将自动断开。
+    proxy_pass cloudsocket1;
+    &#125;
+&#125;
 </code></pre>
 <ul>
-<li><p>&#x3D;&#x3D;注&#x3D;&#x3D;</p>
-<p>必须登录一下管理员，修改下载链接，否则无法下载</p>
+<li>报错 找不到stream</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh"># 安装nginx源
+curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
+# 先安装
+yum -y install epel-release
+
+#应该是缺少modules模块
+yum -y install nginx-all-modules.noarch
+然后在用nginx -t就好了
+[root@k8s-node2 ~]# nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+</code></pre>
+<h3 id="配置ssh跳转-1"><a href="#配置ssh跳转-1" class="headerlink" title="配置ssh跳转"></a>配置ssh跳转</h3><pre class=" language-sh"><code class="language-sh"># 在配置文件最下方新增以下内容，位置与http&#123;&#125;平级
+# 数据本机的ip+122 来登录ssh，可以访问到192.168.1.101:22的服务器，可以用来操作服务器或者传输文件等
+stream &#123;
+    upstream cloudsocket2 &#123;
+    hash $remote_addr consistent;
+    # $binary_remote_addr;
+    server 192.168.1.101:22 weight=5 max_fails=3 fail_timeout=30s;	#跳转到的服务器
+    &#125;
+    server &#123;
+    listen 122;#连接服务器ssh监听端口
+    proxy_connect_timeout 10s;
+    proxy_timeout 300s;#设置客户端和代理服务之间的超时时间，如果5分钟内没操作将自动断开。
+    proxy_pass cloudsocket2;
+    &#125;
+
+&#125;
+</code></pre>
+<h2 id="配置http跳转"><a href="#配置http跳转" class="headerlink" title="配置http跳转"></a>配置http跳转</h2><h3 id="配置负载均衡"><a href="#配置负载均衡" class="headerlink" title="配置负载均衡"></a>配置负载均衡</h3><pre class=" language-sh"><code class="language-sh">http &#123;
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    #健康监测 如果某台服务器down掉，则在周期内部在跳转到该服务器上，当服务重启后，再次恢复其访问
+    upstream yuanlai &#123;
+    #max_fails 检查1次触发，fail_timeout触发周期为60秒
+        server 192.168.1.100:7009 max_fails=1 fail_timeout=60; 	#指向的地址
+        server 192.168.1.105:7009 max_fails=1 fail_timeout=60;	#指向的地址
+    &#125;
+    server&#123;
+        listen 7010;	#监听的端口
+        server_name localhost;	#监听的本地地址
+
+        location / &#123;
+            #访问上面定义的名称
+            proxy_pass http://yuanlai;
+            #设置页面响应超时时间3秒
+            proxy_read_timeout 3;
+            proxy_send_timeout 3;
+            proxy_connect_timeout 3;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
+<h3 id="转发说明"><a href="#转发说明" class="headerlink" title="转发说明"></a>转发说明</h3><ul>
+<li><p>proxy_pass</p>
+<p>假设请求：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost/online/wxapi/test/loginSwitch
+</code></pre>
+</li>
+<li><p>proxy_pass结尾有&#x2F;</p>
+<pre class=" language-conf"><code class="language-conf">location /online/wxapi/ &#123;
+        proxy_pass http://localhost:8080/;
+        proxy_set_header X-Real-IP $remote_addr;
+&#125;
+</code></pre>
+<p>代理后的实际地址：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost:8080/test/loginSwitch
+</code></pre>
+<ul>
+<li>proxy_pass结尾没有&#x2F;</li>
+</ul>
+<pre class=" language-conf"><code class="language-conf">location /online/wxapi/ &#123;
+        proxy_pass http://localhost:8080;
+        proxy_set_header X-Real-IP $remote_addr;
+&#125;
+</code></pre>
+<p>代理后的实际地址：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost:8080/test/loginSwitch
+</code></pre>
+<ul>
+<li>proxy_pass结尾有&#x2F;web</li>
+</ul>
+<pre class=" language-conf"><code class="language-conf">location /online/wxapi/ &#123;
+        proxy_pass http://localhost:8080/web;
+        proxy_set_header X-Real-IP $remote_addr;
+&#125;
+</code></pre>
+<p>代理后的实际地址：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost:8080/webtest/loginSwitch
+</code></pre>
+<ul>
+<li>proxy_pass结尾有&#x2F;web&#x2F;</li>
+</ul>
+<pre class=" language-conf"><code class="language-conf">location /online/wxapi/ &#123;
+        proxy_pass http://localhost:8080/web/;
+        proxy_set_header X-Real-IP $remote_addr;
+&#125;
+</code></pre>
+<p>代理后的实际地址：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost:8080/test/loginSwitch
+</code></pre>
+<p>proxy_pass结尾有&#x2F;</p>
+<pre class=" language-conf"><code class="language-conf">location /online/wxapi/ &#123;
+        proxy_pass http://localhost:8080/;
+        proxy_set_header X-Real-IP $remote_addr;
+&#125;
+</code></pre>
+<p>代理后的实际地址：</p>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">http:</span>//localhost:8080/web/test/loginSwitch
+</code></pre>
 </li>
 </ul>
-<h3 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h3><ul>
-<li>编辑配置文件</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh"># 编辑配置文件
-vim /usr/lib/systemd/system/cloudreve.service
+<h2 id="指向本地文件"><a href="#指向本地文件" class="headerlink" title="指向本地文件"></a>指向本地文件</h2><pre class=" language-sh"><code class="language-sh">worker_processes  1;
+
+events &#123;
+    worker_connections  1024;
+&#125;
+
+http &#123;
+    include       mime.types;
+    default_type  application/octet-stream;
+    sendfile        on;
+    keepalive_timeout  65;
+
+    server &#123;
+        listen       9999;
+        server_name  localhost;
+        
+        location / &#123;
+            # 自动构建索引
+            autoindex on;
+             root  D:\server;
+        &#125;
+        error_page   500 502 503 504  /50x.html;
+        location = /50x.html &#123;
+            root   html;
+        &#125;
+    &#125;
+&#125;
 </code></pre>
-<pre class=" language-properties"><code class="language-properties">[Unit]
-<span class="token attr-name">Description</span><span class="token punctuation">=</span><span class="token attr-value">Cloudreve</span>
-<span class="token attr-name">Documentation</span><span class="token punctuation">=</span><span class="token attr-value">https://docs.cloudreve.org</span>
-<span class="token attr-name">After</span><span class="token punctuation">=</span><span class="token attr-value">network.target</span>
-<span class="token attr-name">After</span><span class="token punctuation">=</span><span class="token attr-value">mysqld.service</span>
-<span class="token attr-name">Wants</span><span class="token punctuation">=</span><span class="token attr-value">network.target</span>
+<h2 id="部署vue项目"><a href="#部署vue项目" class="headerlink" title="部署vue项目"></a>部署vue项目</h2><h3 id="修改nginx-conf"><a href="#修改nginx-conf" class="headerlink" title="修改nginx.conf"></a>修改nginx.conf</h3><p>添加一个server</p>
+<pre class=" language-conf"><code class="language-conf">server &#123;
+    listen       8099;                       #监听端口设置，也就是你vue项目的端口
+    server_name  localhost;       
+    location / &#123;
+      root   /root/project/opmApp/vue/dist;       #前端dist文件夹存放路径
+      try_files $uri $uri/ /index.html;           #解决页面刷新报404错误
+    &#125;
 
-[Service]
-<span class="token attr-name">WorkingDirectory</span><span class="token punctuation">=</span><span class="token attr-value">/PATH_TO_CLOUDREVE</span>
-<span class="token attr-name">ExecStart</span><span class="token punctuation">=</span><span class="token attr-value">/PATH_TO_CLOUDREVE/cloudreve</span>
-<span class="token attr-name">Restart</span><span class="token punctuation">=</span><span class="token attr-value">on-abnormal</span>
-<span class="token attr-name">RestartSec</span><span class="token punctuation">=</span><span class="token attr-value">5s</span>
-<span class="token attr-name">KillMode</span><span class="token punctuation">=</span><span class="token attr-value">mixed</span>
-
-<span class="token attr-name">StandardOutput</span><span class="token punctuation">=</span><span class="token attr-value">null</span>
-<span class="token attr-name">StandardError</span><span class="token punctuation">=</span><span class="token attr-value">syslog</span>
-
-[Install]
-<span class="token attr-name">WantedBy</span><span class="token punctuation">=</span><span class="token attr-value">multi-user.target</span>
+    error_page 404 /404.html;
+        location = /40x.html &#123;
+    &#125;
+    error_page 500 502 503 504 /50x.html;
+        location = /50x.html &#123;
+    &#125;
+&#125;
 </code></pre>
-<ul>
-<li>常用命令</li>
-</ul>
-<pre class=" language-sh"><code class="language-sh"># 更新配置
-systemctl daemon-reload
-
-# 启动服务
-systemctl start cloudreve
-
-# 设置开机启动
-systemctl enable cloudreve
-
-# 启动服务
-systemctl start cloudreve
-
-# 停止服务
-systemctl stop cloudreve
-
-# 重启服务
-systemctl restart cloudreve
-
-# 查看状态
-systemctl status cloudreve
+<h3 id="重启nginx"><a href="#重启nginx" class="headerlink" title="重启nginx"></a>重启nginx</h3><pre><code>/usr/local/nginx/sbin/nginx -s reload
 </code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="更改默认空间"><a href="#更改默认空间" class="headerlink" title="更改默认空间"></a>更改默认空间</h3><p>点击我的头像-&gt;管理面板-&gt;用户组</p>
-<h2 id="windiws-略"><a href="#windiws-略" class="headerlink" title="windiws(略)"></a>windiws(略)</h2>
+<h2 id="location配置说明"><a href="#location配置说明" class="headerlink" title="location配置说明"></a>location配置说明</h2><pre class=" language-sh"><code class="language-sh">= 严格匹配。如果这个查询匹配，那么将停止搜索并立即处理此请求。
+
+~ 为区分大小写匹配(可用正则表达式)
+
+!~为区分大小写不匹配
+
+~* 为不区分大小写匹配(可用正则表达式)
+
+!~*为不区分大小写不匹配
+
+^~ 如果把这个前缀用于一个常规字符串,那么告诉nginx 如果路径匹配那么不测试正则表达式。
+
+
+location = / &#123;
+# 只匹配 / 查询。
+&#125;
+
+location / &#123;
+# 匹配任何查询，因为所有请求都已 / 开头。但是正则表达式规则和长的块规则将被优先和查询匹配。
+
+&#125;
+
+location ^~ /p_w_picpaths/ &#123;
+# 匹配任何已 /p_w_picpaths/ 开头的任何查询并且停止搜索。任何正则表达式将不会被测试。
+
+&#125;
+
+location ~*.(gif|jpg|jpeg)$ &#123;
+# 匹配任何已 gif、jpg 或 jpeg 结尾的请求。
+
+&#125;
+
+location ~*.(gif|jpg|swf)$ &#123;
+    valid_referers none blocked start.igrow.cn sta.igrow.cn;
+
+    if ($invalid_referer) &#123;
+    #防盗链
+
+        rewrite ^/ http://$host/logo.png;
+
+    &#125;
+
+&#125;
+</code></pre>
+<p>http转发配置说明</p>
+<h1 id="高可用（集群）"><a href="#高可用（集群）" class="headerlink" title="高可用（集群）"></a>高可用（集群）</h1><p>两台服务器都装nginx和keepalived</p>
+<h2 id="安装keepalived"><a href="#安装keepalived" class="headerlink" title="安装keepalived"></a>安装keepalived</h2><p>keepalived 用来配置 虚拟ip</p>
+<pre class=" language-sh"><code class="language-sh"># 安装
+yum install keepalived -y
+# 查看是否安装完毕
+rpm -q -q keepalived
+</code></pre>
+<h2 id="配置keepalived"><a href="#配置keepalived" class="headerlink" title="配置keepalived"></a>配置keepalived</h2><p>做nginx高可用主要是修改这个配置文件，nginx中的配置文件不需要修改</p>
+<pre class=" language-sh"><code class="language-sh">cd /etc/keepalived
+vim keepalived.conf
+</code></pre>
+<h3 id="修改主节点配置"><a href="#修改主节点配置" class="headerlink" title="修改主节点配置"></a>修改主节点配置</h3><pre class=" language-conf"><code class="language-conf">global_defs &#123;
+ notification_email &#123;
+ acassen@firewall.loc
+ failover@firewall.loc
+ sysadmin@firewall.loc
+ &#125;
+ notification_email_from Alexandre.Cassen@firewall.loc
+ smtp_server 192.168.130.155
+ smtp_connect_timeout 30
+ router_id LVS_DEVEL
+ script_user root
+ enable_script_security 
+&#125;
+vrrp_script chk_http_port &#123;
+    #脚本要放到这个位置
+ script "/usr/local/src/nginx_check.sh"
+ interval 2 #（检测脚本执行的间隔）
+ weight 2
+&#125;
+vrrp_instance VI_1 &#123;
+ state MASTER # 备份服务器上将 MASTER 改为 BACKUP
+ interface ens33 //网卡
+ virtual_router_id 51 # 主、备机的 virtual_router_id 必须相同
+ priority 100 # 主、备机取不同的优先级，主机值较大，备份机值较小
+ advert_int 1
+ authentication &#123;
+ auth_type PASS
+ auth_pass 1111
+ &#125;
+ virtual_ipaddress &#123;
+ 192.168.130.1 // VRRP H 虚拟地址
+ &#125;
+&#125;
+</code></pre>
+<h3 id="修改从节点配置"><a href="#修改从节点配置" class="headerlink" title="修改从节点配置"></a>修改从节点配置</h3><pre class=" language-conf"><code class="language-conf">global_defs &#123;
+ notification_email &#123;
+ acassen@firewall.loc
+ failover@firewall.loc
+ sysadmin@firewall.loc
+ &#125;
+ notification_email_from Alexandre.Cassen@firewall.loc
+ smtp_server 192.168.130.122
+ smtp_connect_timeout 30
+ router_id LVS_DEVEL
+ script_user root
+ enable_script_security 
+&#125;
+vrrp_script chk_http_port &#123;
+    #脚本要放到这个位置
+ script "/usr/local/src/nginx_check.sh"
+ interval 2 #（检测脚本执行的间隔）
+ weight 2
+&#125;
+vrrp_instance VI_1 &#123;
+ state BACKUP # 备份服务器上将 MASTER 改为 BACKUP
+ interface ens33 //网卡
+ virtual_router_id 51 # 主、备机的 virtual_router_id 必须相同
+ priority 90 # 主、备机取不同的优先级，主机值较大，备份机值较小
+ advert_int 1
+ authentication &#123;
+ auth_type PASS
+ auth_pass 1111
+ &#125;
+ virtual_ipaddress &#123;
+ 192.168.130.1 // VRRP H 虚拟地址
+ &#125;
+ 
+&#125;
+</code></pre>
+<h3 id="添加脚本"><a href="#添加脚本" class="headerlink" title="添加脚本"></a>添加脚本</h3><pre class=" language-sh"><code class="language-sh">vim /usr/local/src/nginx_check.sh
+</code></pre>
+<pre class=" language-sh"><code class="language-sh">#!/bin/bash
+A=`ps -C nginx –no-header |wc -l`
+if [ $A -eq 0 ];then
+    # nginx的启动脚本的位置
+ /usr/local/nginx/sbin/nginx
+ sleep 2
+ if [ `ps -C nginx --no-header |wc -l` -eq 0 ];then
+ killall keepalived
+ fi
+fi
+</code></pre>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><p>启动两台服务器上的nginx和keepalive</p>
+<h3 id="启动nginx和keepalive"><a href="#启动nginx和keepalive" class="headerlink" title="启动nginx和keepalive"></a>启动nginx和keepalive</h3><pre class=" language-sh"><code class="language-sh">#启动nginx
+/usr/local/nginx/sbin/nginx
+
+#启动keepalived
+systemctl start keepalived.service
+#查看日志
+tail -f /var/log/messages
+
+#查看是否启动
+ps -ef  | grep keepalived
+</code></pre>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><pre class=" language-http"><code class="language-http"># 访问
+<span class="token header-name keyword">http:</span>//192.168.130.1/
+</code></pre>
+<p>关闭主节点的nginx和keepaliced后仍然可以访问</p>
+<h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><h2 id="常用命令-1"><a href="#常用命令-1" class="headerlink" title="常用命令"></a>常用命令</h2><pre class=" language-sh"><code class="language-sh">start nginx
+nginx.exe -s stop
+#查彻底关闭 
+taskkill /f /t /im nginx.exe
+</code></pre>
+
                 
             </div>
             <hr/>
@@ -562,7 +859,7 @@ systemctl status cloudreve
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/">http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/</a>
+                    <a href="http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/nginx%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/nginx%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -600,12 +897,12 @@ systemctl status cloudreve
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/linux/">
-                                    <span class="chip bg-color">linux</span>
+                                <a href="/tags/nginx/">
+                                    <span class="chip bg-color">nginx</span>
                                 </a>
                             
-                                <a href="/tags/Cloudreve/">
-                                    <span class="chip bg-color">Cloudreve</span>
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
                                 </a>
                             
                         </div>
@@ -779,13 +1076,13 @@ systemctl status cloudreve
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/nginx%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/redis%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="nginx的搭建与使用">
+                        <img src="/medias/featureimages/15.jpg" class="responsive-img" alt="redis的搭建与使用">
                         
-                        <span class="card-title">nginx的搭建与使用</span>
+                        <span class="card-title">redis的搭建与使用</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -813,12 +1110,12 @@ systemctl status cloudreve
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/nginx/">
-                        <span class="chip bg-color">nginx</span>
-                    </a>
-                    
                     <a href="/tags/linux/">
                         <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/redis/">
+                        <span class="chip bg-color">redis</span>
                     </a>
                     
                 </div>
@@ -832,13 +1129,13 @@ systemctl status cloudreve
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2023/04/14/%E5%90%8E%E7%AB%AF/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/1.jpg" class="responsive-img" alt="代理模式">
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="使用Cloudreve搭建私人网盘">
                         
-                        <span class="card-title">代理模式</span>
+                        <span class="card-title">使用Cloudreve搭建私人网盘</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -849,14 +1146,14 @@ systemctl status cloudreve
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-14
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-17
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%90%8E%E7%AB%AF/" class="post-category">
-                                    后端
+                            <a href="/categories/%E5%91%A8%E8%BE%B9/" class="post-category">
+                                    周边
                                 </a>
                             
                             
@@ -866,8 +1163,12 @@ systemctl status cloudreve
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-                        <span class="chip bg-color">设计模式</span>
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                    <a href="/tags/Cloudreve/">
+                        <span class="chip bg-color">Cloudreve</span>
                     </a>
                     
                 </div>

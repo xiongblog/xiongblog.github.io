@@ -1,0 +1,1836 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="redis的搭建与使用, 张一雄">
+    <meta name="description" content="我的博客">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>redis的搭建与使用 | 张一雄</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+
+    <script src="/libs/jquery/jquery.min.js"></script>
+
+<meta name="generator" content="Hexo 6.3.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">张一雄</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">张一雄</div>
+        <div class="logo-desc">
+            
+            我的博客
+            
+        </div>
+    </div>
+
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/blinkfox/hexo-theme-matery" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/blinkfox/hexo-theme-matery" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/15.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">redis的搭建与使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
+
+    #articleContent :focus {
+        outline: none;
+    }
+
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
+
+    .toc-widget {
+        width: 345px;
+        padding-left: 20px;
+    }
+
+    .toc-widget .toc-title {
+        padding: 35px 0 15px 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content {
+        padding-bottom: 30px;
+        overflow: auto;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+
+        position: absolute;
+        right: 23.5vw;
+        display: block;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 15px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/linux/">
+                                <span class="chip bg-color">linux</span>
+                            </a>
+                        
+                            <a href="/tags/redis/">
+                                <span class="chip bg-color">redis</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E5%91%A8%E8%BE%B9/" class="post-category">
+                                周边
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-04-17
+                </div>
+                
+
+                
+
+                
+
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><ul>
+<li>使用华为镜像</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">wget https://repo.huaweicloud.com/redis/redis-6.2.5.tar.gz
+</code></pre>
+<ul>
+<li>安装</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">tar -zxvf redis-6.2.5.tar.gz
+cd redis-6.2.5/
+
+make MALLOC=libc
+cd src && make install
+</code></pre>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><ul>
+<li>修改配置</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">cd ..
+vim redis.conf
+
+#注释 这一行重新启动redis即可
+#bind 127.0.0.1
+
+#设置安全密码
+requirepass 123456
+
+# 静寂启动	
+daemonize yes
+</code></pre>
+<h2 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h2><ul>
+<li>启动</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">cd src/
+./redis-server /opt/redis/redis-6.2.5/redis.conf
+
+# 查看是否启动
+ps -aux | grep redis
+</code></pre>
+<ul>
+<li>设置开机启动</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">cd /etc
+mkdir redis
+cd redis
+cp /opt/redis/redis-6.2.5/redis.conf /etc/redis/6379.conf
+cp /opt/redis/redis-6.2.5/utils/redis_init_script /etc/init.d/redisd
+cd /etc/init.d
+chkconfig redisd on
+
+# 以后启动方式可以用这种
+service redisd start
+service redisd stop
+</code></pre>
+<h1 id="配置持久化"><a href="#配置持久化" class="headerlink" title="配置持久化"></a>配置持久化</h1><h2 id="出处"><a href="#出处" class="headerlink" title="出处"></a>出处</h2><pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//www.cnblogs.com/kismetv/p/9137897.html
+</code></pre>
+<h2 id="RDB"><a href="#RDB" class="headerlink" title="RDB"></a>RDB</h2><h3 id="手动"><a href="#手动" class="headerlink" title="手动"></a>手动</h3><pre class=" language-sh"><code class="language-sh">#进入客户端
+./redis-cli 
+
+#执行命令
+127.0.0.1:6379> save
+</code></pre>
+<h3 id="自动"><a href="#自动" class="headerlink" title="自动"></a>自动</h3><h4 id="修改redis-conf配置文件中的"><a href="#修改redis-conf配置文件中的" class="headerlink" title="修改redis.conf配置文件中的"></a>修改redis.conf配置文件中的</h4><pre class=" language-sh"><code class="language-sh">#   save ""
+save 900 1
+save 300 10
+save 60 10000
+</code></pre>
+<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>其中save 900 1的含义是：当时间到900秒时，如果redis数据发生了至少1次变化，则执行bgsave；save 300 10和save 60 10000同理。当三个save条件满足任意一个时，都会引起bgsave的调用。</p>
+<p>在主从复制场景下，如果从节点执行全量复制操作，则主节点会执行bgsave命令，并将rdb文件发送给从节点</p>
+<p>执行shutdown命令时，自动执行rdb持久化</p>
+<h3 id="存储路径"><a href="#存储路径" class="headerlink" title="存储路径"></a>存储路径</h3><h4 id="修改redis-conf"><a href="#修改redis-conf" class="headerlink" title="修改redis.conf"></a>修改redis.conf</h4><p>名称</p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># The filename where to dump the DB</span>
+
+<span class="token comment" spellcheck="true">#此处为存储位置，dir配置指定目录，dbfilename指定文件名。默认是Redis根目录下的dump.rdb文件。</span>
+<span class="token attr-name">dbfilename</span> <span class="token attr-value">dump.rdb </span>
+
+<span class="token comment" spellcheck="true"># Remove RDB files used by replication in instances without persistence</span>
+</code></pre>
+<p>路径</p>
+<pre class=" language-properties"><code class="language-properties"><span class="token comment" spellcheck="true"># Note that you must specify a directory here, not a file name.</span>
+<span class="token attr-name">dir</span> <span class="token attr-value">./</span>
+</code></pre>
+<h4 id="启动加载"><a href="#启动加载" class="headerlink" title="启动加载"></a>启动加载</h4><p>RDB文件的载入工作是在服务器启动时自动执行的，并没有专门的命令。但是由于AOF的优先级更高，因此当AOF开启时，Redis会优先载入AOF文件来恢复数据；只有当AOF关闭时，才会在Redis服务器启动时检测RDB文件，并自动载入。服务器载入RDB文件期间处于阻塞状态，直到载入完成为止。</p>
+<h2 id="AOF"><a href="#AOF" class="headerlink" title="AOF"></a>AOF</h2><p>Redis服务器默认开启RDB，关闭AOF；要开启AOF，需要在配置文件中配置。</p>
+<p>当AOF开启时，Redis启动时会优先载入AOF文件来恢复数据；只有当AOF关闭时，才会载入RDB文件恢复数据。</p>
+<p>当AOF开启，但AOF文件不存在时，即使RDB文件存在也不会加载(更早的一些版本可能会加载，但3.0不会)</p>
+<p>常用配置，redis.conf</p>
+<pre class=" language-properties"><code class="language-properties"><span class="token attr-name">-</span> <span class="token attr-value">appendonly no：是否开启AOF</span>
+<span class="token attr-name">-</span> <span class="token attr-value">appendfilename "appendonly.aof"：AOF文件名</span>
+<span class="token attr-name">-</span> <span class="token attr-value">dir ./：RDB文件和AOF文件所在目录</span>
+<span class="token attr-name">-</span> <span class="token attr-value">appendfsync everysec：fsync持久化策略</span>
+<span class="token attr-name">-</span> <span class="token attr-value">no-appendfsync-on-rewrite no：AOF重写期间是否禁止fsync；如果开启该选项，可以减轻文件重写时CPU和硬盘的负载（尤其是硬盘），但是可能会丢失AOF重写期间的数据；需要在负载和安全性之间进行平衡</span>
+<span class="token attr-name">-</span> <span class="token attr-value">auto-aof-rewrite-percentage 100：文件重写触发条件之一</span>
+<span class="token attr-name">-</span> <span class="token attr-value">auto-aof-rewrite-min-size 64mb：文件重写触发提交之一</span>
+<span class="token attr-name">-</span> <span class="token attr-value">aof-load-truncated yes：如果AOF文件结尾损坏，Redis启动时是否仍载入AOF文件</span>
+</code></pre>
+<h1 id="集群的搭建"><a href="#集群的搭建" class="headerlink" title="集群的搭建"></a>集群的搭建</h1><h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><h3 id="说明-1"><a href="#说明-1" class="headerlink" title="说明"></a>说明</h3><p>Redis集群至少需要3个节点，因为投票容错机制要求超过半数节点认为某个节点挂了该节点才是挂了，所以2个节点无法构成集群。<br>要保证集群的高可用，需要每个节点都有从节点，也就是备份节点，所以Redis集群至少需要6台服务器。因为我没有那么多服务器，也启动不了那么多虚拟机，所在这里搭建的是伪分布式集群，即一台服务器虚拟运行6个redis实例，修改端口号为（7001-7006），当然实际生产环境的Redis集群搭建和这里是一样的。</p>
+<p>redis安装过程请看当前目录下的过程</p>
+<h3 id="准备过程"><a href="#准备过程" class="headerlink" title="准备过程"></a>准备过程</h3><h4 id="1、创建文件夹保存redis节点"><a href="#1、创建文件夹保存redis节点" class="headerlink" title="1、创建文件夹保存redis节点"></a>1、创建文件夹保存redis节点</h4><pre class=" language-sh"><code class="language-sh">mkdir redis-cluste
+</code></pre>
+<h4 id="2-复制配置文件"><a href="#2-复制配置文件" class="headerlink" title="2.复制配置文件"></a>2.复制配置文件</h4><pre class=" language-sh"><code class="language-sh">mkdir /usr/local/redis-cluste/redis01
+
+cp -r /usr/local/redis/bin/ /usr/local/redis-cluste/redis01/
+
+cp -r /usr/local/redis/etc/* /usr/local/redis-cluste/redis01/bin/
+
+#删除无用代码
+rm -rf dump.rdb
+</code></pre>
+<p><strong>修改后的文件目录</strong></p>
+<pre class=" language-sh"><code class="language-sh">nodes.conf
+redis-benchmark
+redis-check-aof
+redis-check-rdb
+redis-cli
+redis.conf
+redis-sentinel -> redis-server
+redis-server
+</code></pre>
+<h4 id="3、修改端口号"><a href="#3、修改端口号" class="headerlink" title="3、修改端口号"></a>3、修改端口号</h4><pre class=" language-sh"><code class="language-sh">vim redis.conf 
+</code></pre>
+<p>修改为</p>
+<pre class=" language-sh"><code class="language-sh">port 6379  ->  port 7001
+
+# cluster-enabled yes  ->  cluster-enabled yes	(去掉注释)
+</code></pre>
+<h4 id="4、复制节点"><a href="#4、复制节点" class="headerlink" title="4、复制节点"></a>4、复制节点</h4><p>复制文件夹redis01为redis01至redis07</p>
+<p>逐个修改配置文件的端口号</p>
+<pre class=" language-sh"><code class="language-sh">cp -r  redis01 redis02
+</code></pre>
+<p>启动关闭redis</p>
+<pre class=" language-sh"><code class="language-sh">在配置文件目录下/usr/local/redis-cluste/redis01/bin
+
+./redis-server redis.conf
+
+redis-cli -p 7001 shutdown
+</code></pre>
+<h4 id="5、制作shell文件，快速启动"><a href="#5、制作shell文件，快速启动" class="headerlink" title="5、制作shell文件，快速启动"></a>5、制作shell文件，快速启动</h4><pre class=" language-shell"><code class="language-shell">#!/bin/bash
+
+cd  /usr/local/redis-cluste/redis01/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis02/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis03/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis04/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis05/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis06/bin
+
+./redis-server ./redis.conf
+
+
+
+cd  /usr/local/redis-cluste/redis07/bin
+
+./redis-server ./redis.conf
+</code></pre>
+<h6 id="执行权限"><a href="#执行权限" class="headerlink" title="执行权限"></a>执行权限</h6><pre class=" language-sh"><code class="language-sh">chmod 777 ./start.sh
+</code></pre>
+<h6 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h6><p>bash: .&#x2F;start.sh: &#x2F;bin&#x2F;bash　^M: 坏的解释器: 没有那个文件或目录</p>
+<pre class=" language-shell"><code class="language-shell">sed -i 's/\r$//' start.sh
+</code></pre>
+<h6 id="执行后查看端口号"><a href="#执行后查看端口号" class="headerlink" title="执行后查看端口号"></a>执行后查看端口号</h6><pre class=" language-sh"><code class="language-sh">netstat -lntp
+
+ps aux|grep redis
+</code></pre>
+<h4 id="6、制作shell文件，快速关闭"><a href="#6、制作shell文件，快速关闭" class="headerlink" title="6、制作shell文件，快速关闭"></a>6、制作shell文件，快速关闭</h4><pre class=" language-shell"><code class="language-shell">#!/bin/bash
+redis-cli -p 7001 shutdown
+redis-cli -p 7002 shutdown
+redis-cli -p 7003 shutdown
+redis-cli -p 7004 shutdown
+redis-cli -p 7005 shutdown
+redis-cli -p 7006 shutdown
+redis-cli -p 7007 shutdown
+</code></pre>
+<hr>
+<h2 id="搭建"><a href="#搭建" class="headerlink" title="搭建"></a>搭建</h2><h3 id="说明-2"><a href="#说明-2" class="headerlink" title="说明"></a>说明</h3><p>至此6个redis节点启动成功（准备七个作为备用），接下来正式开启搭建集群，以上都是准备条件。大家不要觉得图片多看起来冗长所以觉得麻烦，其实以上步骤也就一句话的事情：创建6个redis实例（6个节点）并启动。<br>要搭建集群的话，需要使用一个工具（脚本文件），这个工具在redis解压文件的源代码里。因为这个工具是一个ruby脚本文件，所以这个工具的运行需要ruby的运行环境，就相当于java语言的运行需要在jvm上。所以需要安装ruby</p>
+<h3 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h3><h4 id="1、安装ruby"><a href="#1、安装ruby" class="headerlink" title="1、安装ruby"></a>1、安装ruby</h4><pre class=" language-sh"><code class="language-sh">#这种方法版本太低，不推荐
+yum install ruby
+</code></pre>
+<p><strong>卸载</strong></p>
+<pre class=" language-sh"><code class="language-sh">yum erase ruby ruby-libs ruby-mode ruby-rdoc ruby-irb ruby-ri ruby-docs
+</code></pre>
+<p><strong>下载最新版本的ruby并且解压</strong></p>
+<pre class=" language-sh"><code class="language-sh">#正常方法
+http://www.ruby-lang.org/zh_cn/documentation/installation/
+
+cd ruby-3.0.1
+
+./configure
+
+make
+
+sudo make install
+
+# 启动位置指向
+ln -s /usr/local/bin/ruby /usr/bin/ruby
+
+#查看版本
+ruby -v
+说明
+默认情况下，Ruby 安装到 /usr/local 目录。如果想使用其他目录，可以把 --prefix=DIR 选项传给 ./configure 脚本。
+</code></pre>
+<p>重装</p>
+<pre class=" language-sh"><code class="language-sh">yum groupinstall "Development tools"
+
+yum erase ruby ruby-libs ruby-mode ruby-rdoc ruby-irb ruby-ri ruby-docs
+
+yum -y install zlib-devel curl-devel openssl-devel httpd-devel apr-devel apr-util-devel mysql-devel
+
+重复上述安装
+</code></pre>
+<h4 id="2、安装gem"><a href="#2、安装gem" class="headerlink" title="2、安装gem"></a>2、安装gem</h4><p>然后需要把ruby相关的包安装到服务器，我这里用的是redis-3.0.0.gem，大家需要注意的是：redis的版本和ruby包的版本最好保持一致。<br>将Ruby包安装到服务器：需要先下载再安装</p>
+<p>网上下载后放入服务器，然后安装</p>
+<p>下载地址：<a target="_blank" rel="noopener" href="https://rubygems.org/gems/redis/versions/4.2.5">https://rubygems.org/gems/redis/versions/4.2.5</a></p>
+<h5 id="安装gem"><a href="#安装gem" class="headerlink" title="安装gem"></a>安装gem</h5><pre class=" language-sh"><code class="language-sh">gem install redis-4.2.5.gem 
+</code></pre>
+<p><strong>返回</strong></p>
+<pre class=" language-sh"><code class="language-sh">Successfully installed redis-4.2.5
+Parsing documentation for redis-4.2.5
+Installing ri documentation for redis-4.2.5
+Done installing documentation for redis after 0 seconds
+1 gem installed
+</code></pre>
+<h5 id="复制脚本工具"><a href="#复制脚本工具" class="headerlink" title="复制脚本工具"></a>复制脚本工具</h5><p><strong>说明</strong></p>
+<p>上一步中已经把ruby工具所需要的运行环境和ruby包安装好了，接下来需要把这个ruby脚本工具复制到usr&#x2F;local&#x2F;redis-cluster目录下。那么这个ruby脚本工具在哪里呢？之前提到过，在redis解压文件的源代码里，即redis&#x2F;src目录下的redis-trib.rb文件</p>
+<pre class=" language-sh"><code class="language-sh">cd /usr/local/redis-6.0.8/src
+
+cat redis-trib.rb
+
+cp ./redis-trib.rb /usr/local/redis-cluste/
+</code></pre>
+<h4 id="创建集群"><a href="#创建集群" class="headerlink" title="创建集群"></a>创建集群</h4><p>执行命令</p>
+<pre class=" language-sh"><code class="language-sh">./redis-trib.rb create --replicas 1 192.168.116.133:7001 192.168.116.133:7002 192.168.116.133:7003 192.168.116.133:7004 192.168.116.133:7005 192.168.116.133:7006
+</code></pre>
+<p>报错</p>
+<p>WARNING: redis-trib.rb is not longer available!<br>You should use redis-cli instead.</p>
+<p>原因</p>
+<p>原本的命令.&#x2F;redis-trib.rb create –replicas 1 172.16.0.71:9001 172.16.0.71:9002 废弃了，提示改用redis-cli</p>
+<p>重新执行</p>
+<pre class=" language-sh"><code class="language-sh">cd /usr/local/redis-6.0.8/src/
+
+cp ./redis-cli /usr/local/redis-cluste/
+
+./redis-cli create --replicas 1 192.168.116.133:7001 192.168.116.133:7002 192.168.116.133:7003 192.168.116.133:7004 192.168.116.133:7005 192.168.116.133:7006
+</code></pre>
+<p>报错</p>
+<p>Could not connect to Redis at 127.0.0.1:6379: Connection refused</p>
+<p>原因：主服务未打开</p>
+<pre class=" language-sh"><code class="language-sh">cd /usr/local/redis
+
+./bin/redis-server ./etc/redis.conf 
+
+cd /usr/local/redis-cluste/
+
+#启动
+./redis-cli --cluster create --cluster-replicas 1  192.168.116.133:7001 192.168.116.133:7002 192.168.116.133:7003 192.168.116.133:7004 192.168.116.133:7005 192.168.116.133:7006
+</code></pre>
+<p><strong>返回</strong></p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Performing hash slots allocation on 6 nodes…<br>Master[0] -&gt; Slots 0 - 5460<br>Master[1] -&gt; Slots 5461 - 10922<br>Master[2] -&gt; Slots 10923 - 16383<br>Adding replica 192.168.116.133:7005 to 192.168.116.133:7001<br>Adding replica 192.168.116.133:7006 to 192.168.116.133:7002<br>Adding replica 192.168.116.133:7004 to 192.168.116.133:7003<br>Trying to optimize slaves allocation for anti-affinity<br>[WARNING] Some slaves are in the same host as their master<br>M: 59d0924bc1755d5565033ce00707adc50e30945e 192.168.116.133:7001<br>slots:[0-5460] (5461 slots) master<br>M: 6bd1e3c097f5f6092e42db71807c7199bb6d5444 192.168.116.133:7002<br>slots:[5461-10922] (5462 slots) master<br>M: 77989ff4487a1a91ffe8ae77cd9e13450ded7a77 192.168.116.133:7003<br>slots:[10923-16383] (5461 slots) master<br>S: 8b6aaa5b64dda8e8edc05800f4cdd835ded8af4e 192.168.116.133:7004<br>replicates 59d0924bc1755d5565033ce00707adc50e30945e<br>S: 2230987188ffa0e393bc0f9948e68356c86141a1 192.168.116.133:7005<br>replicates 6bd1e3c097f5f6092e42db71807c7199bb6d5444<br>S: 83d8dba574db757b064f352b5561c3558e52493b 192.168.116.133:7006<br>replicates 77989ff4487a1a91ffe8ae77cd9e13450ded7a77<br>Can I set the above configuration? (type ‘yes’ to accept): yes<br>Nodes configuration updated<br>Assign a different config epoch to each node<br>Sending CLUSTER MEET messages to join the cluster<br>Waiting for the cluster to join</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>Performing Cluster Check (using node 192.168.116.133:7001)<br>M: 59d0924bc1755d5565033ce00707adc50e30945e 192.168.116.133:7001<br>slots:[0-5460] (5461 slots) master<br>1 additional replica(s)<br>M: 77989ff4487a1a91ffe8ae77cd9e13450ded7a77 192.168.116.133:7003<br>slots:[10923-16383] (5461 slots) master<br>1 additional replica(s)<br>S: 8b6aaa5b64dda8e8edc05800f4cdd835ded8af4e 192.168.116.133:7004<br>slots: (0 slots) slave<br>replicates 59d0924bc1755d5565033ce00707adc50e30945e<br>S: 83d8dba574db757b064f352b5561c3558e52493b 192.168.116.133:7006<br>slots: (0 slots) slave<br>replicates 77989ff4487a1a91ffe8ae77cd9e13450ded7a77<br>S: 2230987188ffa0e393bc0f9948e68356c86141a1 192.168.116.133:7005<br>slots: (0 slots) slave<br>replicates 6bd1e3c097f5f6092e42db71807c7199bb6d5444<br>M: 6bd1e3c097f5f6092e42db71807c7199bb6d5444 192.168.116.133:7002<br>slots:[5461-10922] (5462 slots) master<br>1 additional replica(s)<br>[OK] All nodes agree about slots configuration.<br>Check for open slots…<br>Check slots coverage…<br>[OK] All 16384 slots covered.</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p><strong>查看状态</strong></p>
+<pre class=" language-sh"><code class="language-sh">redis-cli -c -p 7001 cluster info
+</code></pre>
+<p><strong>测试</strong></p>
+<pre class=" language-sh"><code class="language-sh">redis-cli -c -p 7001
+
+127.0.0.1:7001> set username mess1
+</code></pre>
+<p><strong>返回</strong></p>
+<pre class=" language-sh"><code class="language-sh">-> Redirected to slot [14315] located at 192.168.116.133:7003
+OK
+</code></pre>
+<h2 id="集群的启动与关闭"><a href="#集群的启动与关闭" class="headerlink" title="集群的启动与关闭"></a>集群的启动与关闭</h2><h3 id="关闭"><a href="#关闭" class="headerlink" title="关闭"></a>关闭</h3><pre class=" language-sh"><code class="language-sh">ps -ef | grep redis
+kill -9 10252 10257 10262 10267 10272 10294
+
+也可执行以下命令来关闭redis进程
+
+pkill -9 redis
+</code></pre>
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><p><strong>保留原来的数据：</strong><br>逐个关闭redis实例，再逐个的启动即可。</p>
+<p><strong>丢弃原来的数据：</strong><br>关闭实例，清空实例中数据存放目录的所有内容，然后逐个启动实例，在任意一个实例上执行集群的创建命令即可,本质上就是创建一个新的集群<br>清空数据存储目录内容：</p>
+<p><strong>手动管理</strong></p>
+<pre class=" language-sh"><code class="language-sh">3、将 ip 和 port 所指定的节点添加到集群中
+
+CLUSTER MEET <ip> <port>
+
+4、从集群中移除 node_id 指定的节点
+
+CLUSTER FORGET <node_id>
+
+5、将当前节点设置为 node_id 指定的节点的从节点
+
+CLUSTER REPLICATE <node_id>
+
+6、将节点的配置文件保存到硬盘里面
+
+CLUSTER SAVECONFIG
+
+7、将一个或多个槽（slot）指派（assign）给当前节点
+
+CLUSTER ADDSLOTS <slot> [slot ...]
+
+8、移除一个或多个槽对当前节点的指派
+
+CLUSTER DELSLOTS <slot> [slot ...]
+
+9、 移除指派给当前节点的所有槽，让当前节点变成一个没有指派任何槽的节点
+
+CLUSTER FLUSHSLOTS
+
+10、将槽 slot 指派给 node_id 指定的节点，如果槽已经指派给另一个节点，那么先让另一个节点删除该槽>，然后再进行指派
+
+CLUSTER SETSLOT <slot> NODE <node_id>
+
+11、将本节点的槽 slot 迁移到 node_id 指定的节点中
+
+CLUSTER SETSLOT <slot> MIGRATING <node_id>
+
+12、从 node_id 指定的节点中导入槽 slot 到本节点
+
+CLUSTER SETSLOT <slot> IMPORTING <node_id>
+
+13、取消对槽 slot 的导入（import）或者迁移（migrate）
+
+CLUSTER SETSLOT <slot> STABLE
+
+14、计算键 key 应该被放置在哪个槽上
+
+CLUSTER KEYSLOT <key>
+
+15、返回槽 slot 目前包含的键值对数量
+
+CLUSTER COUNTKEYSINSLOT <slot>
+
+16、返回 count 个 slot 槽中的键
+
+CLUSTER GETKEYSINSLOT <slot> <count>
+
+</code></pre>
+<h2 id="springboot链接redis集群"><a href="#springboot链接redis集群" class="headerlink" title="springboot链接redis集群"></a>springboot链接redis集群</h2><p>创建一个简单的springboot项目（项目在备份中）</p>
+<h3 id="pom-xml"><a href="#pom-xml" class="headerlink" title="pom.xml"></a>pom.xml</h3><pre class=" language-xml"><code class="language-xml"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>redis.clients<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>jedis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="application-yml"><a href="#application-yml" class="headerlink" title="application.yml"></a>application.yml</h3><pre class=" language-yaml"><code class="language-yaml"><span class="token key atrule">spring</span><span class="token punctuation">:</span>
+  <span class="token comment" spellcheck="true">#application:</span>
+    <span class="token comment" spellcheck="true">#name: redis-cluster</span>
+  <span class="token key atrule">redis</span><span class="token punctuation">:</span>
+    <span class="token key atrule">cluster</span><span class="token punctuation">:</span>
+      <span class="token key atrule">nodes</span><span class="token punctuation">:</span> 192.168.116.133<span class="token punctuation">:</span><span class="token number">7001</span><span class="token punctuation">,</span>192.168.116.133<span class="token punctuation">:</span><span class="token number">7002</span><span class="token punctuation">,</span>192.168.116.133<span class="token punctuation">:</span><span class="token number">7003</span><span class="token punctuation">,</span>192.168.116.133<span class="token punctuation">:</span><span class="token number">7004</span><span class="token punctuation">,</span>192.168.116.133<span class="token punctuation">:</span><span class="token number">7005</span><span class="token punctuation">,</span>192.168.116.133<span class="token punctuation">:</span><span class="token number">7006</span>
+      <span class="token key atrule">max-redirects</span><span class="token punctuation">:</span> <span class="token number">12  </span><span class="token comment" spellcheck="true">#重链接的最大数量</span>
+<span class="token key atrule">redis</span><span class="token punctuation">:</span>
+  <span class="token key atrule">timeout</span><span class="token punctuation">:</span> <span class="token number">10000 </span><span class="token comment" spellcheck="true">#客户端超时时间单位是毫秒 默认是2000</span>
+  <span class="token key atrule">maxIdle</span><span class="token punctuation">:</span> <span class="token number">300 </span><span class="token comment" spellcheck="true">#最大空闲数</span>
+  <span class="token key atrule">maxTotal</span><span class="token punctuation">:</span> <span class="token number">1000 </span><span class="token comment" spellcheck="true">#控制一个pool可分配多少个jedis实例,用来替换上面的redis.maxActive,如果是jedis 2.4以后用该属性</span>
+  <span class="token key atrule">maxWaitMillis</span><span class="token punctuation">:</span> <span class="token number">1000 </span><span class="token comment" spellcheck="true">#最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。</span>
+  <span class="token key atrule">minEvictableIdleTimeMillis</span><span class="token punctuation">:</span> <span class="token number">300000 </span><span class="token comment" spellcheck="true">#连接的最小空闲时间 默认1800000毫秒(30分钟)</span>
+  <span class="token key atrule">numTestsPerEvictionRun</span><span class="token punctuation">:</span> <span class="token number">1024 </span><span class="token comment" spellcheck="true">#每次释放连接的最大数目,默认3</span>
+  <span class="token key atrule">timeBetweenEvictionRunsMillis</span><span class="token punctuation">:</span> <span class="token number">30000 </span><span class="token comment" spellcheck="true">#逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1</span>
+  <span class="token key atrule">testOnBorrow</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true">#是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个</span>
+  <span class="token key atrule">testWhileIdle</span><span class="token punctuation">:</span> <span class="token boolean important">true </span><span class="token comment" spellcheck="true">#在空闲时检查有效性, 默认false</span>
+  <span class="token key atrule">password</span><span class="token punctuation">:</span> <span class="token number">123456 </span><span class="token comment" spellcheck="true">#密码</span>
+<span class="token key atrule">server</span><span class="token punctuation">:</span>
+  <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">8080</span>
+</code></pre>
+<h3 id="配置类RedisClusterConfig"><a href="#配置类RedisClusterConfig" class="headerlink" title="配置类RedisClusterConfig"></a>配置类RedisClusterConfig</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>config<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>HashSet<span class="token punctuation">;</span>
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Set<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Value<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Bean<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>context<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Configuration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>RedisClusterConfiguration<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>RedisNode<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>RedisPassword<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>connection<span class="token punctuation">.</span>jedis<span class="token punctuation">.</span>JedisConnectionFactory<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span>RedisTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>serializer<span class="token punctuation">.</span>Jackson2JsonRedisSerializer<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>serializer<span class="token punctuation">.</span>StringRedisSerializer<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>JsonAutoDetect<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>PropertyAccessor<span class="token punctuation">;</span>
+<span class="token keyword">import</span> com<span class="token punctuation">.</span>fasterxml<span class="token punctuation">.</span>jackson<span class="token punctuation">.</span>databind<span class="token punctuation">.</span>ObjectMapper<span class="token punctuation">;</span>
+<span class="token keyword">import</span> redis<span class="token punctuation">.</span>clients<span class="token punctuation">.</span>jedis<span class="token punctuation">.</span>JedisPoolConfig<span class="token punctuation">;</span>
+
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RedisClusterConfig</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;spring.redis.cluster.nodes&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String clusterNodes<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;spring.redis.cluster.max-redirects&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxRedirects<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.password&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> String password<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.timeout&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> timeout<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.maxIdle&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxIdle<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.maxTotal&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxTotal<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.maxWaitMillis&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> maxWaitMillis<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.minEvictableIdleTimeMillis&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> minEvictableIdleTimeMillis<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.numTestsPerEvictionRun&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> numTestsPerEvictionRun<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.timeBetweenEvictionRunsMillis&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> timeBetweenEvictionRunsMillis<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.testOnBorrow&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> testOnBorrow<span class="token punctuation">;</span>
+    <span class="token annotation punctuation">@Value</span><span class="token punctuation">(</span><span class="token string">"$&amp;#123;redis.testWhileIdle&amp;#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">private</span> <span class="token keyword">boolean</span> testWhileIdle<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Redis连接池的配置
+     *
+     * @return JedisPoolConfig
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> JedisPoolConfig <span class="token function">getJedisPoolConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        JedisPoolConfig jedisPoolConfig <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JedisPoolConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 最大空闲数</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxIdle</span><span class="token punctuation">(</span>maxIdle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 连接池的最大数据库连接数</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxTotal</span><span class="token punctuation">(</span>maxTotal<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 最大建立连接等待时间</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMaxWaitMillis</span><span class="token punctuation">(</span>maxWaitMillis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 逐出连接的最小空闲时间 默认1800000毫秒(30分钟)</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setMinEvictableIdleTimeMillis</span><span class="token punctuation">(</span>minEvictableIdleTimeMillis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 每次逐出检查时 逐出的最大数目 如果为负数就是 : 1/abs(n), 默认3</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setNumTestsPerEvictionRun</span><span class="token punctuation">(</span>numTestsPerEvictionRun<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 逐出扫描的时间间隔(毫秒) 如果为负数,则不运行逐出线程, 默认-1</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setTimeBetweenEvictionRunsMillis</span><span class="token punctuation">(</span>timeBetweenEvictionRunsMillis<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 是否在从池中取出连接前进行检验,如果检验失败,则从池中去除连接并尝试取出另一个</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setTestOnBorrow</span><span class="token punctuation">(</span>testOnBorrow<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 在空闲时检查有效性, 默认false</span>
+        jedisPoolConfig<span class="token punctuation">.</span><span class="token function">setTestWhileIdle</span><span class="token punctuation">(</span>testWhileIdle<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> jedisPoolConfig<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * Redis集群的配置
+     *
+     * @return RedisClusterConfiguration
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> RedisClusterConfiguration <span class="token function">redisClusterConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        RedisClusterConfiguration redisClusterConfiguration <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisClusterConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// Set&lt;RedisNode> clusterNodes</span>
+        String<span class="token punctuation">[</span><span class="token punctuation">]</span> serverArray <span class="token operator">=</span> clusterNodes<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">","</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        Set<span class="token operator">&lt;</span>RedisNode<span class="token operator">></span> nodes <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashSet</span><span class="token operator">&lt;</span>RedisNode<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>String ipPort <span class="token operator">:</span> serverArray<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            String<span class="token punctuation">[</span><span class="token punctuation">]</span> ipAndPort <span class="token operator">=</span> ipPort<span class="token punctuation">.</span><span class="token function">split</span><span class="token punctuation">(</span><span class="token string">":"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            nodes<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">RedisNode</span><span class="token punctuation">(</span>ipAndPort<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">trim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Integer<span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span>ipAndPort<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+        redisClusterConfiguration<span class="token punctuation">.</span><span class="token function">setClusterNodes</span><span class="token punctuation">(</span>nodes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisClusterConfiguration<span class="token punctuation">.</span><span class="token function">setMaxRedirects</span><span class="token punctuation">(</span>maxRedirects<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisClusterConfiguration<span class="token punctuation">.</span><span class="token function">setPassword</span><span class="token punctuation">(</span>RedisPassword<span class="token punctuation">.</span><span class="token function">of</span><span class="token punctuation">(</span>password<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> redisClusterConfiguration<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * redis连接工厂类
+     *
+     * @return JedisConnectionFactory
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> JedisConnectionFactory <span class="token function">jedisConnectionFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 集群模式</span>
+        JedisConnectionFactory factory <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">JedisConnectionFactory</span><span class="token punctuation">(</span><span class="token function">redisClusterConfiguration</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">getJedisPoolConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> factory<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 实例化 RedisTemplate 对象
+     *
+     * @return RedisTemplate&lt;String, Object>
+     */</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> <span class="token function">redisTemplate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> redisTemplate <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">RedisTemplate</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// Template初始化</span>
+        <span class="token function">initDomainRedisTemplate</span><span class="token punctuation">(</span>redisTemplate<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> redisTemplate<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">/**
+     * 设置数据存入 redis 的序列化方式 使用默认的序列化会导致key乱码
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">void</span> <span class="token function">initDomainRedisTemplate</span><span class="token punctuation">(</span>RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> redisTemplate<span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// 开启redis数据库事务的支持</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setEnableTransactionSupport</span><span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setConnectionFactory</span><span class="token punctuation">(</span><span class="token function">jedisConnectionFactory</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// 如果不配置Serializer，那么存储的时候缺省使用String，如果用User类型存储，那么会提示错误User can't cast to</span>
+        <span class="token comment" spellcheck="true">// String！</span>
+        StringRedisSerializer stringRedisSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">StringRedisSerializer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setKeySerializer</span><span class="token punctuation">(</span>stringRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// hash的key也采用String的序列化方式</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setHashKeySerializer</span><span class="token punctuation">(</span>stringRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// jackson序列化对象设置</span>
+        Jackson2JsonRedisSerializer<span class="token operator">&lt;</span>Object<span class="token operator">></span> jackson2JsonRedisSerializer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Jackson2JsonRedisSerializer</span><span class="token operator">&lt;</span><span class="token operator">></span><span class="token punctuation">(</span>
+                Object<span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        ObjectMapper om <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObjectMapper</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        om<span class="token punctuation">.</span><span class="token function">setVisibility</span><span class="token punctuation">(</span>PropertyAccessor<span class="token punctuation">.</span>ALL<span class="token punctuation">,</span> JsonAutoDetect<span class="token punctuation">.</span>Visibility<span class="token punctuation">.</span>ANY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        om<span class="token punctuation">.</span><span class="token function">enableDefaultTyping</span><span class="token punctuation">(</span>ObjectMapper<span class="token punctuation">.</span>DefaultTyping<span class="token punctuation">.</span>NON_FINAL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        jackson2JsonRedisSerializer<span class="token punctuation">.</span><span class="token function">setObjectMapper</span><span class="token punctuation">(</span>om<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token comment" spellcheck="true">// value序列化方式采用jackson</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setValueSerializer</span><span class="token punctuation">(</span>jackson2JsonRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token comment" spellcheck="true">// hash的value序列化方式采用jackson</span>
+        redisTemplate<span class="token punctuation">.</span><span class="token function">setHashValueSerializer</span><span class="token punctuation">(</span>jackson2JsonRedisSerializer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        redisTemplate<span class="token punctuation">.</span><span class="token function">afterPropertiesSet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="测试类controller"><a href="#测试类controller" class="headerlink" title="测试类controller"></a>测试类controller</h3><pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>example<span class="token punctuation">.</span>demo<span class="token punctuation">.</span>controller<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>data<span class="token punctuation">.</span>redis<span class="token punctuation">.</span>core<span class="token punctuation">.</span>RedisTemplate<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RequestMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RestController<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>util<span class="token punctuation">.</span>Date<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @author ：zhangYiXiong
+ * @date ：Created in 2021/6/2 15:11
+ * @description：
+ * @version: 1.0
+ */</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">TestController</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> RedisTemplate<span class="token operator">&lt;</span>String<span class="token punctuation">,</span> Object<span class="token operator">></span> template<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/test"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> String <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        String k <span class="token operator">=</span> <span class="token string">"springboot"</span><span class="token operator">+</span><span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        template<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">set</span><span class="token punctuation">(</span>k<span class="token punctuation">,</span> <span class="token string">"hello world! 你好，世界"</span><span class="token operator">+</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        String str <span class="token operator">=</span> <span class="token punctuation">(</span>String<span class="token punctuation">)</span> template<span class="token punctuation">.</span><span class="token function">opsForValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span>k<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> str<span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="redission"><a href="#redission" class="headerlink" title="redission"></a>redission</h1><h2 id="springboot整合redission"><a href="#springboot整合redission" class="headerlink" title="springboot整合redission"></a>springboot整合redission</h2><ul>
+<li><p>pom</p>
+<pre class=" language-xml"><code class="language-xml">  <span class="token comment" spellcheck="true">&lt;!--整合redission框架start--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.boot<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-boot-starter-data-redis<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.redisson<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>redisson-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.12.5<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token comment" spellcheck="true">&lt;!--整合redission框架enc--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.commons<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>commons-lang3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
+<li><p>yml配置</p>
+<pre class=" language-yml"><code class="language-yml">spring:
+  #redisson配置,默认连接库0,无密码只配置连接地址即可
+  redis:
+    host: 127.0.0.1
+    database: 0
+    password:
+</code></pre>
+</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li><p>限流器的使用</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">package</span> com<span class="token punctuation">.</span>cyc<span class="token punctuation">.</span>redission<span class="token punctuation">.</span>n1<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>redisson<span class="token punctuation">.</span>api<span class="token punctuation">.</span>RRateLimiter<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>redisson<span class="token punctuation">.</span>api<span class="token punctuation">.</span>RateIntervalUnit<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>redisson<span class="token punctuation">.</span>api<span class="token punctuation">.</span>RateType<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>redisson<span class="token punctuation">.</span>api<span class="token punctuation">.</span>RedissonClient<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>beans<span class="token punctuation">.</span>factory<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>Autowired<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RequestMapping<span class="token punctuation">;</span>
+<span class="token keyword">import</span> org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>web<span class="token punctuation">.</span>bind<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>RestController<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/*
+ * 限流器
+ * 1.先调用init方法生成5个令牌
+ * 2.通过该限流器的名称rateLimiter来获取令牌limiter.tryAcquire()
+ * 3.谁抢到,谁先执行,否则返回提示信息,可以用于秒杀场景
+ * */</span>
+<span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/limiter"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">RateLimiterTest</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Autowired</span>
+    <span class="token keyword">private</span> RedissonClient redissonClient<span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//初始化限流器</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/init"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        RRateLimiter limiter <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getRateLimiter</span><span class="token punctuation">(</span><span class="token string">"rateLimiter"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        limiter<span class="token punctuation">.</span><span class="token function">trySetRate</span><span class="token punctuation">(</span>RateType<span class="token punctuation">.</span>PER_CLIENT<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> RateIntervalUnit<span class="token punctuation">.</span>SECONDS<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//每1秒产生5个令牌</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">//获取令牌</span>
+    <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/thread"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">thread</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+        RRateLimiter limiter <span class="token operator">=</span> redissonClient<span class="token punctuation">.</span><span class="token function">getRateLimiter</span><span class="token punctuation">(</span><span class="token string">"rateLimiter"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>limiter<span class="token punctuation">.</span><span class="token function">tryAcquire</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">//尝试获取1个令牌</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"成功获取到令牌"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span> <span class="token keyword">else</span> <span class="token operator">&amp;</span>#<span class="token number">123</span><span class="token punctuation">;</span>
+            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span>Thread<span class="token punctuation">.</span><span class="token function">currentThread</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"未获取到令牌"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+    <span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+<span class="token operator">&amp;</span>#<span class="token number">125</span><span class="token punctuation">;</span>
+</code></pre>
+</li>
+</ul>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">张一雄</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/redis%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/redis%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">张一雄</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/linux/">
+                                    <span class="chip bg-color">linux</span>
+                                </a>
+                            
+                                <a href="/tags/redis/">
+                                    <span class="chip bg-color">redis</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
+
+    #reward .reward-link {
+        font-size: 1.4rem;
+        line-height: 38px;
+    }
+
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
+
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
+
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/frp%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="">
+                        
+                        <span class="card-title"></span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-17
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-user fa-fw"></i>
+                            张一雄
+                            
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/nginx%E7%9A%84%E6%90%AD%E5%BB%BA%E4%B8%8E%E4%BD%BF%E7%94%A8/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="nginx的搭建与使用">
+                        
+                        <span class="card-title">nginx的搭建与使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%91%A8%E8%BE%B9/" class="post-category">
+                                    周边
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                    <a href="/tags/linux/">
+                        <span class="chip bg-color">linux</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/meting@2/dist/Meting.min.js"></script>
+
+    
+    <div class="container row center-align" style="margin-bottom: 0px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2019-2023</span>
+            
+            <span id="year">2019</span>
+            <a href="/about" target="_blank">张一雄</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            <br>
+            
+            
+            
+            
+            
+            
+            <span id="busuanzi_container_site_pv">
+                |&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;<span id="busuanzi_value_site_pv"
+                    class="white-color"></span>&nbsp;次
+            </span>
+            
+            
+            <span id="busuanzi_container_site_uv">
+                |&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;<span id="busuanzi_value_site_uv"
+                    class="white-color"></span>&nbsp;人
+            </span>
+            
+            <br>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://gitee.com/erhu02" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=381173411" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 381173411" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+	
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
