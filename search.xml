@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>使用gitee搭建免费的图床</title>
+      <link href="/2023/04/17/%E5%91%A8%E8%BE%B9/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E7%9A%84%E5%9B%BE%E5%BA%8A/"/>
+      <url>/2023/04/17/%E5%91%A8%E8%BE%B9/%E4%BD%BF%E7%94%A8gitee%E6%90%AD%E5%BB%BA%E5%85%8D%E8%B4%B9%E7%9A%84%E5%9B%BE%E5%BA%8A/</url>
+      
+        <content type="html"><![CDATA[<h2 id="gitee-配置"><a href="#gitee-配置" class="headerlink" title="gitee 配置"></a>gitee 配置</h2><ul><li><p>新建仓库并将其开源</p><pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//gitee.com/erhu02/images.git</code></pre></li><li><p>生成私人令牌</p><p>打开“个人主页”—&gt;“个人设置”—-&gt;“私人令牌”</p><p>点击生【成新令牌】</p><pre class=" language-txt"><code class="language-txt">3bf6281ecebe1b3a56c9aaaeaa64e1ba</code></pre></li></ul><h2 id="配置PicGo"><a href="#配置PicGo" class="headerlink" title="配置PicGo"></a>配置PicGo</h2><ul><li><p>下载</p><pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//link.zhihu.com/?target=https%3A//github.com/Molunerfinn/PicGo/releases</code></pre></li><li><p>安装插件（默认没有gitee插件）</p></li></ul><p>​插件设置-&gt;搜索gitee-&gt;安装【gitee-uploader】</p><ul><li><p>配置gitee</p><p><img src="https://gitee.com/erhu02/images/raw/master/image-20230417183050285.png" alt="image-20230417183050285"></p></li><li><p>测试上传</p></li></ul><h2 id="配置Typora"><a href="#配置Typora" class="headerlink" title="配置Typora"></a>配置Typora</h2><p>文件-&gt;偏好设置</p><p><img src="https://gitee.com/erhu02/images/raw/master/image-20230417183225475.png" alt="image-20230417183225475"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 周边 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> windows </tag>
+            
+            <tag> 图床 </tag>
+            
+            <tag> Typora </tag>
+            
+            <tag> PicGo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>简单的elk实现</title>
       <link href="/2023/04/17/%E5%90%8E%E7%AB%AF/%E7%AE%80%E5%8D%95%E7%9A%84elk%E5%AE%9E%E7%8E%B0/"/>
       <url>/2023/04/17/%E5%90%8E%E7%AB%AF/%E7%AE%80%E5%8D%95%E7%9A%84elk%E5%AE%9E%E7%8E%B0/</url>
