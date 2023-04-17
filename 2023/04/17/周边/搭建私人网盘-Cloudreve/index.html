@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 张一雄">
+    <meta name="keywords" content="使用Cloudreve搭建私人网盘, 张一雄">
     <meta name="description" content="我的博客">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 张一雄</title>
+    <title>使用Cloudreve搭建私人网盘 | 张一雄</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -266,12 +266,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/21.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">使用Cloudreve搭建私人网盘</h1>
                 </div>
             </div>
         </div>
@@ -387,8 +387,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/Python/">
-                                <span class="chip bg-color">Python</span>
+                            <a href="/tags/Cloudreve/">
+                                <span class="chip bg-color">Cloudreve</span>
+                            </a>
+                        
+                            <a href="/tags/nginx/">
+                                <span class="chip bg-color">nginx</span>
                             </a>
                         
                     </div>
@@ -399,8 +403,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/Python/" class="post-category">
-                                Python
+                            <a href="/categories/%E5%91%A8%E8%BE%B9/" class="post-category">
+                                周边
                             </a>
                         
                     </div>
@@ -412,7 +416,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2023-04-14
+                    2023-04-17
                 </div>
                 
 
@@ -433,20 +437,106 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span>
+                <h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><h3 id="环境："><a href="#环境：" class="headerlink" title="环境："></a>环境：</h3><p>centos7</p>
+<h2 id="官网"><a href="#官网" class="headerlink" title="官网"></a>官网</h2><pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//docs.cloudreve.org/
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ul>
+<li>创建文件夹</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">mkdir /usr/local/cloudreve
+cd /usr/local/cloudreve
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate
+<ul>
+<li>下载</li>
+</ul>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">https:</span>//github.com/cloudreve/Cloudreve/releases
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy
+<ul>
+<li>解压</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">tar -zxvf cloudreve_3.7.1_linux_amd64.tar.gz
 </code></pre>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<ul>
+<li>运行(看管理员账号密码)</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh"># 赋予执行权限
+chmod +x ./cloudreve
 
+# 启动 Cloudreve（看管理员账号密码）
+./cloudreve
+</code></pre>
+<ul>
+<li>重置管理员密码</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh">./cloudreve --database-script ResetAdminPassword
+
+# 默认账号
+admin@cloudreve.org
+# 密码
+随机字符
+</code></pre>
+<ul>
+<li>访问</li>
+</ul>
+<pre class=" language-http"><code class="language-http"><span class="token header-name keyword">localhost:</span>5212
+</code></pre>
+<ul>
+<li><p>&#x3D;&#x3D;注&#x3D;&#x3D;</p>
+<p>必须登录一下管理员，修改下载链接，否则无法下载</p>
+</li>
+</ul>
+<h3 id="守护进程"><a href="#守护进程" class="headerlink" title="守护进程"></a>守护进程</h3><ul>
+<li>编辑配置文件</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh"># 编辑配置文件
+vim /usr/lib/systemd/system/cloudreve.service
+</code></pre>
+<pre class=" language-properties"><code class="language-properties">[Unit]
+<span class="token attr-name">Description</span><span class="token punctuation">=</span><span class="token attr-value">Cloudreve</span>
+<span class="token attr-name">Documentation</span><span class="token punctuation">=</span><span class="token attr-value">https://docs.cloudreve.org</span>
+<span class="token attr-name">After</span><span class="token punctuation">=</span><span class="token attr-value">network.target</span>
+<span class="token attr-name">After</span><span class="token punctuation">=</span><span class="token attr-value">mysqld.service</span>
+<span class="token attr-name">Wants</span><span class="token punctuation">=</span><span class="token attr-value">network.target</span>
+
+[Service]
+<span class="token attr-name">WorkingDirectory</span><span class="token punctuation">=</span><span class="token attr-value">/PATH_TO_CLOUDREVE</span>
+<span class="token attr-name">ExecStart</span><span class="token punctuation">=</span><span class="token attr-value">/PATH_TO_CLOUDREVE/cloudreve</span>
+<span class="token attr-name">Restart</span><span class="token punctuation">=</span><span class="token attr-value">on-abnormal</span>
+<span class="token attr-name">RestartSec</span><span class="token punctuation">=</span><span class="token attr-value">5s</span>
+<span class="token attr-name">KillMode</span><span class="token punctuation">=</span><span class="token attr-value">mixed</span>
+
+<span class="token attr-name">StandardOutput</span><span class="token punctuation">=</span><span class="token attr-value">null</span>
+<span class="token attr-name">StandardError</span><span class="token punctuation">=</span><span class="token attr-value">syslog</span>
+
+[Install]
+<span class="token attr-name">WantedBy</span><span class="token punctuation">=</span><span class="token attr-value">multi-user.target</span>
+</code></pre>
+<ul>
+<li>常用命令</li>
+</ul>
+<pre class=" language-sh"><code class="language-sh"># 更新配置
+systemctl daemon-reload
+
+# 启动服务
+systemctl start cloudreve
+
+# 设置开机启动
+systemctl enable cloudreve
+
+# 启动服务
+systemctl start cloudreve
+
+# 停止服务
+systemctl stop cloudreve
+
+# 重启服务
+systemctl restart cloudreve
+
+# 查看状态
+systemctl status cloudreve
+</code></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="更改默认空间"><a href="#更改默认空间" class="headerlink" title="更改默认空间"></a>更改默认空间</h3><p>点击我的头像-&gt;管理面板-&gt;用户组</p>
+<h2 id="windiws-略"><a href="#windiws-略" class="headerlink" title="windiws(略)"></a>windiws(略)</h2>
                 
             </div>
             <hr/>
@@ -472,7 +562,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://erhu01.github.io/2023/04/14/hello-world/">http://erhu01.github.io/2023/04/14/hello-world/</a>
+                    <a href="http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/">http://erhu01.github.io/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -510,8 +600,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/Python/">
-                                    <span class="chip bg-color">Python</span>
+                                <a href="/tags/Cloudreve/">
+                                    <span class="chip bg-color">Cloudreve</span>
+                                </a>
+                            
+                                <a href="/tags/nginx/">
+                                    <span class="chip bg-color">nginx</span>
                                 </a>
                             
                         </div>
@@ -681,11 +775,66 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2023/04/14/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+                <a href="/2023/04/17/%E5%91%A8%E8%BE%B9/%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E7%BD%91%E7%9B%98-Cloudreve/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="使用Cloudreve搭建私人网盘">
+                        
+                        <span class="card-title">使用Cloudreve搭建私人网盘</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-17
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%91%A8%E8%BE%B9/" class="post-category">
+                                    周边
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/Cloudreve/">
+                        <span class="chip bg-color">Cloudreve</span>
+                    </a>
+                    
+                    <a href="/tags/nginx/">
+                        <span class="chip bg-color">nginx</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/04/14/%E5%90%8E%E7%AB%AF/%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                     <div class="card-image">
                         
                         
@@ -701,9 +850,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2023-04-14
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-14
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -721,56 +870,6 @@
                     
                     <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
                         <span class="chip bg-color">设计模式</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
-            </div>
-            <div class="card">
-                <a href="/2023/04/14/hello-world/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2023-04-14
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/Python/" class="post-category">
-                                    Python
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Python/">
-                        <span class="chip bg-color">Python</span>
                     </a>
                     
                 </div>
